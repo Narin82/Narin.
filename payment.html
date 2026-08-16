@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Payment</title>
+<style>
+    body { font-family: Arial; background: #fafafa; margin: 0; padding: 20px; }
+    .container { max-width: 600px; margin: auto; background: white; padding: 20px; border-radius: 12px; box-shadow: 0 5px 20px rgba(0,0,0,0.1);}
+    h1 { text-align: center; margin-bottom: 20px; }
+    .item { display: flex; justify-content: space-between; margin-bottom: 12px; border-bottom: 1px solid #ddd; padding-bottom: 10px; }
+    .item p { margin: 0; }
+    .total { font-size: 22px; font-weight: bold; text-align: right; margin-top: 20px; }
+    .btn { display: block; text-align: center; padding: 12px; background: black; color: white; text-decoration: none; border-radius: 8px; margin-top: 20px; }
+</style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Payment Summary</h1>
+    <div id="summary"></div>
+    <div class="total">Total: $<span id="total"></span></div>
+    <a href="#" class="btn" onclick="payNow()">Pay Now</a>
+</div>
+
+<script>
+const cart = JSON.parse(localStorage.getItem("cart") || "[]");
+let total = 0;
+
+document.getElementById("summary").innerHTML = cart.map(item => {
+    const subtotal = item.price * item.qty;
+    total += subtotal;
+    return `
+        <div class="item">
+            <div>
+                <p>${item.name}${item.size ? " (Size: "+item.size+")" : ""}</p>
+                <p>Qty: ${item.qty}</p>
+            </div>
+            <div>
+                <p>$${item.price} each</p>
+                <p>Subtotal: $${subtotal.toFixed(2)}</p>
+            </div>
+        </div>
+    `;
+}).join("");
+
+document.getElementById("total").innerText = total.toFixed(2);
+
+function payNow() {
+    if(cart.length === 0){
+        alert("Cart is empty!");
+        return;
+    }
+    alert("Payment Successful!");
+    localStorage.removeItem("cart");
+    window.location.href = "index.html"; // or home page
+}
+</script>
+
+</body>
+</html>
