@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Product Details</title>
+  <style>
+    body { font-family: Arial; background: #ffffff; padding: 20px; }
+    .container { max-width: 500px; margin: 0 auto; background: rgb(255, 255, 255); padding: 20px; border-radius: 10px; box-shadow:0 3px 6px rgba(0,0,0,0.1);}
+    .product-img { width: 100%; max-height: 400px; object-fit: cover; border-radius: 5px; }
+    h1 { margin: 15px 0; }
+    p { font-size: 18px; margin: 10px 0; }
+    label { display:block; margin:10px 0 5px; }
+    select { padding: 8px; font-size:16px; margin-bottom: 15px; }
+    .btn { display:inline-block; padding:10px 20px; background:black; color:white; text-decoration:none; border-radius:5px; font-size:16px; }
+  </style>
+</head>
+<body>
+
+<div class="container" id="product-container">
+  <p>Loading product...</p>
+</div>
+
+<script>
+  
+  const products = [
+    // Shirts (IDs 1-20)
+    {id:1, name:"Barcelona Home Shirt", price:90, img:"https://www.fanbase.co.ke/image/cache/catalog/17-18%20football%20season/barcelona/24-25/barcelona-home-new-jersey-24-25-5vhsh%20(1)-550x550.jpg", type:"shirt"},
+    {id:2, name:"Real Madrid Home Shirt", price:95, img:"https://us.shop.realmadrid.com/_next/image?url=https%3A%2F%2Flegends.broadleafcloud.com%2Fapi%2Fasset%2Fcontent%2FRMCFMZ0919_01.jpg%3FcontextRequest%3D%257B%2522forceCatalogForFetch%2522%3Afalse%2C%2522forceFilterByCatalogIncludeInheritance%2522%3Afalse%2C%2522forceFilterByCatalogExcludeInheritance%2522%3Afalse%2C%2522applicationId%2522%3A%252201H4RD9NXMKQBQ1WVKM1181VD8%2522%2C%2522tenantId%2522%3A%2522REAL_MADRID%2522%257D&w=3840&q=50", type:"shirt"},
+    {id:3, name:"Manchester United Home", price:85, img:"https://www.brandmax.com/images/products/37731108_l.jpg", type:"shirt"},
+    {id:4, name:"Liverpool Home Shirt", price:88, img:"https://www.soccerbox.com/media/catalog/product/cache/9d14d56c606ce6e31fa44a7bf9aa05c5/l/i/liverpool-home-shirt-24.jpg", type:"shirt"},
+    {id:5, name:"Juventus Home Shirt", price:92, img:"https://www.classicfootballshirts.co.uk/cdn-cgi/image/fit=pad,q=70,f=webp//pub/media/catalog/product//0/9/091a45627ad267aed191287cbf2ed872b4d7473e91546ae2de2d45509b911985.jpeg", type:"shirt"},
+    {id:6, name:"Bayern Munich Home Shirt", price:89, img:"https://cdn.pixabay.com/photo/2018/01/15/07/51/football-3084935_1280.jpg", type:"shirt"},
+    {id:7, name:"PSG Home Shirt", price:91, img:"https://cdn.pixabay.com/photo/2017/01/22/19/16/soccer-2004467_1280.jpg", type:"shirt"},
+    {id:8, name:"Chelsea Home Shirt", price:87, img:"https://cdn.pixabay.com/photo/2017/03/27/14/56/football-2178758_1280.jpg", type:"shirt"},
+    {id:9, name:"Arsenal Home Shirt", price:86, img:"https://cdn.pixabay.com/photo/2016/11/29/09/09/shoes-1869264_1280.jpg", type:"shirt"},
+    {id:10, name:"AC Milan Home Shirt", price:88, img:"https://cdn.pixabay.com/photo/2018/06/03/00/32/football-3450100_1280.jpg", type:"shirt"},
+    {id:11, name:"Inter Milan Home Shirt", price:87, img:"https://cdn.pixabay.com/photo/2018/01/14/09/59/football-3081370_1280.jpg", type:"shirt"},
+    {id:12, name:"Tottenham Hotspur Home", price:85, img:"https://cdn.pixabay.com/photo/2017/01/22/19/17/soccer-2004468_1280.jpg", type:"shirt"},
+    {id:13, name:"Atletico Madrid Home", price:89, img:"https://cdn.pixabay.com/photo/2016/01/19/17/48/football-1146054_1280.jpg", type:"shirt"},
+    {id:14, name:"Borussia Dortmund Home", price:90, img:"https://cdn.pixabay.com/photo/2016/02/18/18/39/football-1208392_1280.jpg", type:"shirt"},
+    {id:15, name:"Manchester City Home", price:92, img:"https://cdn.pixabay.com/photo/2018/06/04/22/16/football-3452948_1280.jpg", type:"shirt"},
+    {id:16, name:"Napoli Home Shirt", price:88, img:"https://cdn.pixabay.com/photo/2016/03/27/22/18/football-1284444_1280.jpg", type:"shirt"},
+    {id:17, name:"AS Roma Home Shirt", price:86, img:"https://cdn.pixabay.com/photo/2016/11/21/12/48/football-1843726_1280.jpg", type:"shirt"},
+    {id:18, name:"Sevilla FC Home", price:87, img:"https://cdn.pixabay.com/photo/2016/06/02/19/44/football-1439745_1280.jpg", type:"shirt"},
+    {id:19, name:"Valencia CF Home", price:85, img:"https://cdn.pixabay.com/photo/2016/01/19/17/48/football-1146055_1280.jpg", type:"shirt"},
+    {id:20, name:"Villarreal CF Home", price:84, img:"https://cdn.pixabay.com/photo/2016/01/19/17/48/football-1146056_1280.jpg", type:"shirt"},
+
+ 
+    {id:21, name:"Nike Phantom GX", price:150, img:"https://www.futbolemotion.com/imagesarticulos/190515/grandes/bota-nike-phantom-gx-academy-df-fgmg-baltic-blue-pink-blast-white-0.webp", type:"shoe"},
+    {id:22, name:"Adidas Predator", price:145, img:"https://www.futbolemotion.com/imagesarticulos/248166/grandes/bota-adidas-predator-elite-ll-ag-lucid-red-ftwr-white-core-black-0.webp", type:"shoe"},
+    {id:23, name:"Puma Ultra FG", price:140, img:"https://www.futbolemotion.com/imagesarticulos/220644/grandes/bota-puma-ultra-ultimate-rush-fgag-strong-gray-white-elektro-aqua-0.webp", type:"shoe"},
+    {id:24, name:"Nike Mercurial", price:155, img:"https://images.prodirectsport.com/ProductImages/Main/1029085_Main_1907323.jpg", type:"shoe"},
+    {id:25, name:"Adidas X Ghosted", price:150, img:"https://gfx.r-gol.com/media/res/products/410/140410/adidas-x-ghosted-3-fg_1.png", type:"shoe"},
+    {id:26, name:"Puma Future Z", price:148, img:"https://cdn.pixabay.com/photo/2016/11/14/03/16/socks-1822475_1280.jpg", type:"shoe"},
+    {id:27, name:"Nike Tiempo Legend", price:152, img:"https://cdn.pixabay.com/photo/2018/03/19/13/22/sport-shorts-3243773_1280.jpg", type:"shoe"},
+    {id:28, name:"Adidas Copa Sense", price:149, img:"https://cdn.pixabay.com/photo/2017/08/06/06/14/water-bottle-2593553_1280.jpg", type:"shoe"},
+    {id:29, name:"Puma King Top", price:147, img:"https://cdn.pixabay.com/photo/2016/01/19/17/48/football-1146053_1280.jpg", type:"shoe"},
+    {id:30, name:"Nike Superfly", price:160, img:"https://cdn.pixabay.com/photo/2017/08/11/00/56/t-shirt-2624261_1280.jpg", type:"shoe"},
+    {id:31, name:"Adidas Predator Edge", price:155, img:"https://cdn.pixabay.com/photo/2018/01/15/07/51/football-3084935_1280.jpg", type:"shoe"},
+    {id:32, name:"Puma Ultra 1.3", price:150, img:"https://cdn.pixabay.com/photo/2017/01/22/19/16/soccer-2004467_1280.jpg", type:"shoe"},
+    {id:33, name:"Nike Phantom GT", price:158, img:"https://cdn.pixabay.com/photo/2017/08/07/06/31/hoodie-2609264_1280.jpg", type:"shoe"},
+    {id:34, name:"Adidas X Speedflow", price:152, img:"https://cdn.pixabay.com/photo/2016/04/13/21/14/sportshirt-1327510_1280.jpg", type:"shoe"},
+    {id:35, name:"Puma Future Z 1.2", price:148, img:"https://cdn.pixabay.com/photo/2016/04/15/18/05/active-1334440_1280.jpg", type:"shoe"},
+    {id:36, name:"Nike Tiempo Legend 9", price:153, img:"https://cdn.pixabay.com/photo/2016/11/19/14/00/fitness-1837921_1280.jpg", type:"shoe"},
+    {id:37, name:"Adidas Copa Gloro", price:150, img:"https://cdn.pixabay.com/photo/2016/11/29/09/08/shoes-1869263_1280.jpg", type:"shoe"},
+    {id:38, name:"Puma King Platinum", price:147, img:"https://cdn.pixabay.com/photo/2018/03/19/13/22/sport-shorts-3243773_1280.jpg", type:"shoe"},
+    {id:39, name:"Nike Mercurial Vapor", price:160, img:"https://cdn.pixabay.com/photo/2017/08/06/06/14/water-bottle-2593553_1280.jpg", type:"shoe"},
+    {id:40, name:"Adidas Predator Freak+", price:155, img:"https://cdn.pixabay.com/photo/2016/11/14/03/16/socks-1822475_1280.jpg", type:"shoe"},
+
+
+    {id:41, name:"Adidas football", price:25, img:"https://d16aymak0y9zsb.cloudfront.net/Sportsplus/product/1080x1080/21022024/H57783_1_1703767080-1169815127686.jpg", type:"accessory"},
+    {id:42, name:"Rubber football", price:30, img:"https://www.badensports.com/cdn/shop/files/F5C_Hero_Large_286c8315-c16d-40d6-a806-63ede31a6e4c.png?v=1730783508", type:"accessory"},
+    {id:43, name:"Football cone", price:50, img:"https://cdn.pixabay.com/photo/2018/03/29/14/01/tennis-3275194_1280.jpg", type:"accessory"},
+    {id:44, name:"Nike bagt", price:45, img:"https://cdn.pixabay.com/photo/2018/12/27/14/23/badminton-racket-3893234_1280.jpg", type:"accessory"},
+    {id:45, name:"Goalkeeper gloves", price:10, img:"https://cdn.pixabay.com/photo/2017/08/06/06/14/water-bottle-2593553_1280.jpg", type:"accessory"},
+    {id:46, name:"Volleyball", price:8, img:"https://cdn.pixabay.com/photo/2016/10/05/15/28/headband-1719218_1280.jpg", type:"accessory"},
+    {id:47, name:"Basket ball", price:12, img:"https://cdn.pixabay.com/photo/2018/02/02/16/16/cap-3129158_1280.jpg", type:"accessory"},
+    {id:48, name:"Knee Support", price:14, img:"https://cdn.pixabay.com/photo/2017/02/01/15/36/knee-2036991_1280.jpg", type:"accessory"},
+    {id:49, name:"Sports Gloves", price:15, img:"https://cdn.pixabay.com/photo/2017/03/20/21/09/boxing-gloves-2165614_1280.jpg", type:"accessory"},
+    {id:50, name:"Soccer Socks", price:10, img:"https://cdn.pixabay.com/photo/2016/11/14/03/16/socks-1822475_1280.jpg", type:"accessory"},
+    {id:51, name:"Basketball Wristband", price:7, img:"https://cdn.pixabay.com/photo/2016/10/05/15/28/headband-1719218_1280.jpg", type:"accessory"},
+    {id:52, name:"Shin Guards", price:18, img:"https://cdn.pixabay.com/photo/2016/11/29/09/08/shoes-1869263_1280.jpg", type:"accessory"},
+    {id:53, name:"Gym Bag", price:25, img:"https://cdn.pixabay.com/photo/2016/04/13/21/11/bag-1327497_1280.jpg", type:"accessory"}
+  ];
+
+  // 2️⃣ Get product ID from URL
+  const urlParams = new URLSearchParams(window.location.search);
+  const productId = parseInt(urlParams.get('id'));
+
+  // 3️⃣ Find product by ID
+  const product = products.find(p => p.id === productId);
+
+  const container = document.getElementById("product-container");
+
+  if(!product) {
+    container.innerHTML = "<p>Product not found.</p>";
+  } else {
+    let sizeOptions = "";
+    if (product.type === "shirt", "accessory") {
+  sizeOptions = `
+    <label for="size">Choose Size:</label>
+    <select id="size">
+      <option value="" disabled selected>Size</option>
+      <option value="S">S</option>
+      <option value="M">M</option>
+      <option value="L">L</option>
+      <option value="XL">XL</option>
+    </select>
+  `;
+} 
+else if (product.type === "shoe") {
+  sizeOptions = `
+    <label for="size">Choose Size:</label>
+    <select id="size">
+      <option value="" disabled selected>Size</option>
+      <option value="37">37</option>
+      <option value="38">38</option>
+      <option value="39">39</option>
+      <option value="40">40</option>
+      <option value="41">41</option>
+      <option value="42">42</option>
+      <option value="43">43</option>
+      <option value="44">44</option>
+      <option value="45">45</option>
+      <option value="46">46</option>
+    </select>
+  `;
+}
+
+ container.innerHTML = `
+  <img style="width:50%;margin:auto;height:280px;display:flex;justify-content:center;align-content:center;" class="product-img" src="${product.img}" alt="${product.name}">
+  <h1>${product.name}</h1>
+  <p>Price: $${product.price}</p>
+  ${sizeOptions}
+
+  <a href="#" class="btn"
+     onclick='event.preventDefault(); addToCart({
+        id: "${product.id}",
+        name: \`${product.name}\`,
+        price: "${product.price}",
+        image: "${product.img}",
+        size: document.getElementById("size") ? document.getElementById("size").value : ""
+     })'>
+     Add to Cart
+  </a>
+`;
+
+  }
+
+function addToCart(product) {
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+    cart.push(product);
+
+    localStorage.setItem("cart", JSON.stringify(cart));
+
+    // Go to the cart page
+    window.location.href = "cart.html";
+}
+
+</script>
+
+</body>
+</html>
