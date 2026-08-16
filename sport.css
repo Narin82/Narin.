@@ -1,0 +1,179 @@
+*{
+  box-sizing: border-box;
+  margin: 0px;
+  padding: 0px;  
+}
+.container1{
+  width: 100%;
+  background-color: #f7f7f7;
+}
+.navbar1{
+    background-color: rgb(201, 230, 255);
+    width: 100%;
+    height:28px;
+    position: relative;
+}
+h1{
+  font-size: 38px;
+  background: -webkit-linear-gradient(90deg, #afa2e6 0%, #6455e8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.marquee-container {
+      width: 100%;
+      /* overflow: visible; */
+      height: 100%;
+      background-color: rgb(145, 145, 145);
+    }
+
+    .marquee {
+      display: inline-block;
+      white-space: nowrap;
+      font-size: 1.1rem;
+      color: aliceblue;
+      animation: bounceLeftRight 4.2s ease-in-out infinite alternate;
+    }
+
+    @keyframes bounceLeftRight {
+      0% {
+        transform: translateX(10px);
+      }
+      100% {
+        transform: translateX(1200px);
+      }
+    }
+    .navbar2{
+      width: 100%;
+      height: 50px;
+      position: sticky;
+      top: 0;
+      background-color: #ffffff;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      z-index: 1;
+    }
+    .logo1{
+      width: 110px;
+    }
+    ul{
+      display: flex;
+      gap: 100px;
+      align-items: center;
+    }
+    li{
+      padding-top: 15px;
+      list-style: none;
+      font-family: "Josefin Sans", sans-serif;
+      font-optical-sizing: auto;
+      font-weight: <weight>;
+      font-style: normal;
+    }
+    .navbar2 a{
+      text-decoration: none;
+      color: black;
+      transition: all 0.2s ease-in-out;
+      position: relative;
+    }
+    .navbar2 a.animate:hover{
+      color: #2ecc71;
+      transition: all 0.2s ease-in-out;
+    }
+    .navbar2 a.animate::after{
+    Content: "";
+    position: absolute;
+    background-color:#2ecc71;
+    transition: all 0.3s ease-in-out;
+    width: 0px;
+    height: 2px;
+    left: 1px;
+    top: 20px;
+}
+.navbar2 a:not(.animate):hover{
+  color: #2ecc71;
+}
+.navbar2 a.animate:hover::after{
+    width: 100%;
+    transition: all 0.1s ease-out;
+}
+    .list-drop{
+      position: relative;
+      display: inline-block;
+    }
+    .dropdown-content{
+      display: none;
+      position: absolute;
+      background-color: #fff;
+
+      box-shadow: 0px 8px 16px rgba(0, 0, 0,0.2);
+      z-index: 100;
+    }
+    .dropdown-content a{
+      color: #341e1e;
+      padding:  12px 16px;
+      display: block;
+      text-decoration: none;
+      background-image: 
+    }
+    .dropdown-content a:hover{
+      background-color: #f1f1f1;
+    }
+    .list-drop:hover .dropdown-content{
+      display: block;
+    }
+    h2{
+      text-decoration: underline;
+      font-family: "Oswald", sans-serif;
+      font-optical-sizing: auto;
+      font-weight: <weight>;
+      font-style: normal;
+    }
+    .container{
+      margin-top: 60px;
+      background-color: #fafafa;
+      width: 90%;
+      height: 500px;
+    }
+    .cards{
+      margin-top: 20px;
+      width: 200px;
+      height: 300px;
+      background-color: #ffffff;
+      border-radius: 15px;
+      transition: all 0.3s ease-in-out;
+    }
+    .cards:hover{
+      transform: translateY(-10px);
+      transition: 0.2s ease-out;
+      box-shadow: 5px 3px 20px rgb(17, 0, 255);
+    }
+    .homecard{
+      width: 100%;
+      height: 45%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #e8e8e8;
+      border-radius: 15px 15px 0px 0px;
+    }
+    .pho{
+      background-image: url(https://static.nike.com/a/images/t_default/36b95aae-1fae-4740-9be3-d70a92bea7f2/PHANTOM+GX+ELITE+FG.png);
+      width: 71%;
+      height: 100%;
+      margin-left: 28px;
+      margin-top: 10px;
+      background-size: cover;
+      background-repeat: no-repeat;
+    }
+    @media (max-width: 1080px) {
+  li{
+    font-size: 15px;
+
+  }
+  .menu {
+    margin-top: 10px;
+  }
+  ul{
+    gap: 20px;
+  }
+}
