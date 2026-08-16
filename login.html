@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Simple Styled Login Page</title>
+  <style>
+    body{
+      margin:0;
+      padding:0;
+      height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background:#006bf8;
+      font-family: Arial, sans-serif;
+    }
+    .card{
+      width:350px;
+      background:white;
+      padding:28px;
+      border-radius:12px;
+      box-shadow:0 6px 20px rgba(0,0,0,0.12);
+    }
+    h2{
+      margin:0 0 18px;
+      text-align:center;
+      color:#334155;
+    }
+    label{
+      display:block;
+      margin-top:12px;
+      margin-bottom:4px;
+      color:#475569;
+      font-size:14px;
+    }
+    input{
+      width:93%;
+      padding:10px;
+      border:1px solid #cbd5e1;
+      border-radius:8px;
+      font-size:14px;
+    }
+    .error{
+      color:#dc2626;
+      font-size:13px;
+      margin-top:8px;
+      min-height:16px;
+    }
+    button{
+      width:100%;
+      padding:12px;
+      margin-top:18px;
+      border:none;
+      border-radius:8px;
+      background:#3b82f6;
+      color:white;
+      font-size:15px;
+      cursor:pointer;
+      font-weight:600;
+    }
+    button:hover{
+      background:#2563eb;
+    }   
+    .link{
+      margin-top:12px;
+      text-align:center;
+      font-size:13px;
+    }
+    .link a{
+      color:#3b82f6;
+      text-decoration:none;
+    }
+  </style>
+</head>
+<body>
+  <form id="loginForm">
+     <div class="card">
+    <h2>Login</h2>
+    <label for="username">Email</label>
+    <input type="text" id="username" placeholder="Enter your email" required>
+
+    <label for="password">Password</label>
+    <input type="password" id="password" placeholder="Password" required>
+
+    <div class="error" id="errorMsg"></div>
+
+    <button type="submit">Login</button>
+
+    <div class="link">
+      Don't have an account? <a href="./Register.html">Register</a>
+    </div>
+  </div>
+  </form>
+
+<script>
+  document.getElementById("loginForm").addEventListener("submit", function(event){
+    event.preventDefault(); // Stop automatic form submit
+
+    const user = document.getElementById("username").value.trim().toLowerCase();
+    const pass = document.getElementById("password").value;
+    const errorMsg = document.getElementById("errorMsg");
+    errorMsg.textContent = "";
+
+    if(user === "" || pass === "") {
+      errorMsg.textContent = "Please fill all fields!";
+      return;
+    }
+
+    // Load registered users
+    let users = JSON.parse(localStorage.getItem("users")) || [];
+
+    // Find a user whose email + password match
+    const matchedUser = users.find(u => u.email === user && u.password === pass);
+
+    if(!matchedUser){
+      errorMsg.textContent = "Incorrect email or password!";
+      return;
+    }
+
+    // Save who is currently logged in (used by other pages, e.g. navbar greeting)
+    localStorage.setItem("currentUser", JSON.stringify({ name: matchedUser.name, email: matchedUser.email }));
+
+    // Go to home page
+    window.location.href = "sport.html";
+  });
+</script>
+</body>
+</html>
