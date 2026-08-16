@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Register</title>
+
+<style>
+body{
+    margin:0;
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:#006bf8;
+    font-family:Arial,sans-serif;
+}
+
+.card{
+    width:350px;
+    background:white;
+    padding:28px;
+    border-radius:12px;
+    box-shadow:0 6px 20px rgba(0,0,0,0.12);
+}
+
+h2{
+    text-align:center;
+}
+
+label{
+    display:block;
+    margin-top:12px;
+    margin-bottom:4px;
+    color:#475569;
+    font-size:14px;
+}
+
+input{
+    width:93%;
+    padding:10px;
+    margin:4px 0;
+    border:1px solid #ccc;
+    border-radius:8px;
+}
+
+.error{
+    color:#dc2626;
+    font-size:13px;
+    margin-top:4px;
+    min-height:16px;
+}
+
+button{
+    width:100%;
+    padding:12px;
+    margin-top:18px;
+    border:none;
+    border-radius:8px;
+    background:#3b82f6;
+    color:white;
+    cursor:pointer;
+    font-weight:600;
+    font-size:15px;
+}
+button:hover{
+    background:#2563eb;
+}
+
+.link{
+    text-align:center;
+    margin-top:14px;
+    font-size:13px;
+}
+.link a{
+    color:#3b82f6;
+    text-decoration:none;
+}
+</style>
+</head>
+
+<body>
+
+<form id="registerForm">
+<div class="card">
+    <h2>Register</h2>
+
+    <label for="name">Full Name</label>
+    <input type="text" id="name" placeholder="Enter your name" required>
+
+    <label for="email">Email</label>
+    <input type="email" id="email" placeholder="Enter Email" required>
+
+    <label for="password">Password</label>
+    <input type="password" id="password" placeholder="Enter Password (min 6 characters)" required>
+
+    <label for="confirm">Confirm Password</label>
+    <input type="password" id="confirm" placeholder="Re-enter Password" required>
+
+    <div class="error" id="errorMsg"></div>
+
+    <button type="submit">Register</button>
+
+    <div class="link">
+        Already have an account? <a href="./login.html">Login</a>
+    </div>
+</div>
+</form>
+
+<script>
+document.getElementById("registerForm").addEventListener("submit", function(e){
+    e.preventDefault();
+
+    const name = document.getElementById("name").value.trim();
+    const email = document.getElementById("email").value.trim().toLowerCase();
+    const password = document.getElementById("password").value;
+    const confirm = document.getElementById("confirm").value;
+    const errorMsg = document.getElementById("errorMsg");
+    errorMsg.textContent = "";
+
+    // Basic validation
+    if(name === "" || email === "" || password === "" || confirm === ""){
+        errorMsg.textContent = "Please fill all fields!";
+        return;
+    }
+
+    if(password.length < 6){
+        errorMsg.textContent = "Password must be at least 6 characters!";
+        return;
+    }
+
+    if(password !== confirm){
+        errorMsg.textContent = "Passwords do not match!";
+        return;
+    }
+
+    // Load existing users (array, not a single overwritten user)
+    let users = JSON.parse(localStorage.getItem("users")) || [];
+
+    // Check if email is already registered
+    const exists = users.some(u => u.email === email);
+    if(exists){
+        errorMsg.textContent = "This email is already registered. Please login.";
+        return;
+    }
+
+    // Save new user
+    users.push({ name, email, password });
+    localStorage.setItem("users", JSON.stringify(users));
+
+    alert("Register Success! Please login.");
+    window.location.href = "login.html";
+});
+</script>
+
+</body>
+</html>
